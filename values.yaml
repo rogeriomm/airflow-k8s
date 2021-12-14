@@ -1,0 +1,88 @@
+dags:
+  persistence:
+    # Enable persistent volume for storing dags
+    enabled: true
+    # Volume size for dags
+    size: 1Gi
+    # access mode of the persistent volume
+    accessMode: ReadWriteOnce
+    ## the name of an existing PVC to use
+    existingClaim: dags-airflow
+
+logs:
+  persistence:
+    # Enable persistent volume for storing logs
+    enabled: true
+    # Volume size for logs
+    size: 100Gi
+    # If using a custom storageClass, pass name here
+    storageClassName:
+    ## the name of an existing PVC to use
+    existingClaim: logs-airflow
+
+webserverSecretKey: 0d24c8d5679587f277499ced36aeaec6
+
+# Ingress configuration
+ingress:
+  # Enable ingress resource
+  enabled: true
+
+  # Configs for the Ingress of the web Service
+  web:
+    # Annotations for the web Ingress
+    annotations: {}
+
+    # The path for the web Ingress
+    path: "/"
+
+    # The pathType for the above path (used only with Kubernetes v1.19 and above)
+    pathType: "ImplementationSpecific"
+
+    # The hostname for the web Ingress (Deprecated - renamed to `ingress.web.hosts`)
+    host: ""
+
+    # The hostnames for the web Ingress
+    hosts: [airflow.worldl.xpt]
+
+    # The Ingress Class for the web Ingress (used only with Kubernetes v1.19 and above)
+    ingressClassName: ""
+
+    # configs for web Ingress TLS
+    tls:
+      # Enable TLS termination for the web Ingress
+      enabled: false
+      # the name of a pre-created Secret containing a TLS private key and certificate
+      secretName: ""
+
+    # HTTP paths to add to the web Ingress before the default path
+    precedingPaths: []
+
+    # Http paths to add to the web Ingress after the default path
+    succeedingPaths: []
+
+  # Configs for the Ingress of the flower Service
+  flower:
+    # Annotations for the flower Ingress
+    annotations: {}
+
+    # The path for the flower Ingress
+    path: "/"
+
+    # The pathType for the above path (used only with Kubernetes v1.19 and above)
+    pathType: "ImplementationSpecific"
+
+    # The hostname for the flower Ingress (Deprecated - renamed to `ingress.flower.hosts`)
+    host: ""
+
+    # The hostnames for the flower Ingress
+    hosts: [flower.worldl.xpt]
+
+    # The Ingress Class for the flower Ingress (used only with Kubernetes v1.19 and above)
+    ingressClassName: ""
+
+    # configs for web Ingress TLS
+    tls:
+      # Enable TLS termination for the flower Ingress
+      enabled: false
+      # the name of a pre-created Secret containing a TLS private key and certificate
+      secretName: ""
