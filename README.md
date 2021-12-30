@@ -1,13 +1,27 @@
    * Clean persistent volumes before install
-
 ```commandline
+cd scripts
+./clean-pv.sh
+```
+
+   * Create airflow namespace and persistent volume claim
+```commandline
+cd k8s/yaml
 kubectl create ns airflow
 kubectl apply -f persistent-volume-claim.yaml
 ```
 
+   * Add helm repository
 ```commandline
-helm install airflow apache-airflow/airflow --namespace airflow -f values.yaml
+helm repo add apache-airflow https://airflow.apache.org
+helm repo update
 ```
+
+   * Install Helm chart
+```commandline
+helm install airflow apache-airflow/airflow --namespace airflow --version 1.3.0 --values values.yaml
+```
+
 ```text
 NAME: airflow
 LAST DEPLOYED: Thu Dec 16 10:14:25 2021
@@ -43,10 +57,38 @@ You can get Fernet Key value by running the following:
    * http://airflow.worldl.xpt/
       * User: admin, Password: admin
 
+# Uninstall
+```commandline
+helm uninstall airflow --namespace airflow
+```
+```commandline
+kubectl delete ns airflow
+```
+
+```commandline
+cd scripts
+./clean-pv.sh
+```
+
 # Certificates
    * https://stackoverflow.com/questions/65403910/ssl-certificate-verification-error-airflow-s3: SSL Certificate Verification Error Airflow S3
+
+# Helm repo versions
+```commandline
+helm search repo apache-airflow/airflow --versions
+```
+
+```text
+NAME                  	CHART VERSION	APP VERSION	DESCRIPTION
+apache-airflow/airflow	1.3.0        	2.2.1      	The official Helm chart to deploy Apache Airflo...
+apache-airflow/airflow	1.2.0        	2.1.4      	The official Helm chart to deploy Apache Airflo...
+apache-airflow/airflow	1.1.0        	2.1.2      	The official Helm chart to deploy Apache Airflo...
+apache-airflow/airflow	1.0.0        	2.0.2      	Helm chart to deploy Apache Airflow, a platform...
+```
+
 # References
    * https://airflow.apache.org/docs/helm-chart/stable/index.html: Helm Chart for Apache Airflow
       * https://airflow.apache.org/docs/helm-chart/stable/production-guide.html#webserver-secret-key
    * https://artifacthub.io/packages/helm/airflow-helm/airflow/
+   * https://github.com/airflow-helm/charts/blob/main/charts/airflow/values.yaml
 

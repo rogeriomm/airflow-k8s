@@ -1,3 +1,15 @@
+images:
+  airflow:
+    repository: registry.minikube/airflow
+    tag: master
+    pullPolicy: IfNotPresent
+
+  flower:
+    repository: registry.minikube/airflow
+    tag: master
+    pullPolicy: IfNotPresent
+
+
 dags:
   persistence:
     # Enable persistent volume for storing dags
@@ -5,7 +17,7 @@ dags:
     # Volume size for dags
     size: 1Gi
     # access mode of the persistent volume
-    accessMode: ReadWriteOnce
+    accessMode: ReadWriteMany
     ## the name of an existing PVC to use
     existingClaim: dags-airflow
 
