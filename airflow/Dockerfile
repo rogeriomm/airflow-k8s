@@ -4,7 +4,7 @@ USER root
 
 # Add self signed certificates
 COPY certs/*.crt /usr/local/share/ca-certificates/
-RUN dpkg-reconfigure ca-certificates
+RUN update-ca-certificates
 
 #ENTRYPOINT ["/bin/sh"]
 
