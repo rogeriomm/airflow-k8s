@@ -73,6 +73,32 @@ cd scripts
 # Certificates
    * https://stackoverflow.com/questions/65403910/ssl-certificate-verification-error-airflow-s3: SSL Certificate Verification Error Airflow S3
 
+## curl works on airflow worker pod
+```commandline
+curl https://minio.minio-tenant-1.svc.cluster.local
+```
+
+## Python works on airflow
+```python
+import http.client
+
+connection = http.client.HTTPSConnection("minio-tenant-1-console.minio-tenant-1.svc.cluster.local", 9443)
+connection.request("GET", "/login")
+response = connection.getresponse()
+print("Status: {} and reason: {}".format(response.status, response.reason))
+```
+
+## AWS cli works on airflow
+   * https://stackoverflow.com/questions/32946050/ssl-certificate-verify-failed-in-aws-cli: SSL CERTIFICATE_VERIFY_FAILED in aws cli
+
+   * Dockerfile
+```commandline
+export AWS_CA_BUNDLE=/usr/local/share/ca-certificates/minikube-ca.crt
+```
+
+## Airflow S3 connection
+   * Airflow S3 connection doesn't work. AWS self certificate issue
+
 # Helm repo versions
 ```commandline
 helm search repo apache-airflow/airflow --versions
@@ -86,9 +112,19 @@ apache-airflow/airflow	1.1.0        	2.1.2      	The official Helm chart to depl
 apache-airflow/airflow	1.0.0        	2.0.2      	Helm chart to deploy Apache Airflow, a platform...
 ```
 
+# Minio
+   * https://stackoverflow.com/questions/55529401/airflow-minio-how-do-i-use-minio-as-a-local-s3-proxy-for-data-sent-from-airflow
+
+   * Airflow connection Id: "aws_default". Extra configuration:
+```json
+{"aws_access_key_id": "minio", "aws_secret_access_key": "awesomes3", "host": "https://minio.minio-tenant-1.svc.cluster.local"}
+```
+
+
 # References
    * https://airflow.apache.org/docs/helm-chart/stable/index.html: Helm Chart for Apache Airflow
       * https://airflow.apache.org/docs/helm-chart/stable/production-guide.html#webserver-secret-key
    * https://artifacthub.io/packages/helm/airflow-helm/airflow/
    * https://github.com/airflow-helm/charts/blob/main/charts/airflow/values.yaml
-
+   * https://airflow.apache.org/docs/apache-airflow/1.10.12/usage-cli.html: Using the Command Line Interface
+   * https://www.youtube.com/watch?v=dGn5gfzGFJs: Install Apache Airflow on MacOS

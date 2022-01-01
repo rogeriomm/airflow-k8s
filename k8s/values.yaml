@@ -2,12 +2,12 @@ images:
   airflow:
     repository: registry.minikube/airflow
     tag: master
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
 
   flower:
     repository: registry.minikube/airflow
     tag: master
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
 
 
 dags:
