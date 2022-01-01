@@ -73,12 +73,16 @@ cd scripts
 # Certificates
    * https://stackoverflow.com/questions/65403910/ssl-certificate-verification-error-airflow-s3: SSL Certificate Verification Error Airflow S3
 
-## curl works on airflow worker pod
+## curl 
 ```commandline
 curl https://minio.minio-tenant-1.svc.cluster.local
 ```
+   * Dockerfile
+```commandline
+export CURL_CA_BUNDLE=/usr/local/share/ca-certificates/minikube-ca.crt
+```
 
-## Python works on airflow
+## Python
 ```python
 import http.client
 
@@ -88,16 +92,13 @@ response = connection.getresponse()
 print("Status: {} and reason: {}".format(response.status, response.reason))
 ```
 
-## AWS cli works on airflow
+## AWS cli/Airflow S3 connection
    * https://stackoverflow.com/questions/32946050/ssl-certificate-verify-failed-in-aws-cli: SSL CERTIFICATE_VERIFY_FAILED in aws cli
 
    * Dockerfile
 ```commandline
 export AWS_CA_BUNDLE=/usr/local/share/ca-certificates/minikube-ca.crt
 ```
-
-## Airflow S3 connection
-   * Airflow S3 connection doesn't work. AWS self certificate issue
 
 # Helm repo versions
 ```commandline
