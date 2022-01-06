@@ -1,3 +1,4 @@
+# Install
    * Clean persistent volumes before install
 ```commandline
 cd scripts
@@ -113,14 +114,11 @@ apache-airflow/airflow	1.1.0        	2.1.2      	The official Helm chart to depl
 apache-airflow/airflow	1.0.0        	2.0.2      	Helm chart to deploy Apache Airflow, a platform...
 ```
 
-# Minio
-   * https://stackoverflow.com/questions/55529401/airflow-minio-how-do-i-use-minio-as-a-local-s3-proxy-for-data-sent-from-airflow
-
+# Airflow connection: AWS S3 MINIO
    * Airflow connection Id: "aws_default". Extra configuration:
 ```json
 {"aws_access_key_id": "minio", "aws_secret_access_key": "awesomes3", "host": "https://minio.minio-tenant-1.svc.cluster.local"}
 ```
-
 
 # References
    * https://airflow.apache.org/docs/helm-chart/stable/index.html: Helm Chart for Apache Airflow
