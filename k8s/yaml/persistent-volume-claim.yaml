@@ -30,7 +30,7 @@ metadata:
   name: data-airflow-postgresql-0
   namespace: airflow
 spec:
-  storageClassName: nfs
+  storageClassName: standard
   accessModes:
     - ReadWriteOnce
   resources:
@@ -43,7 +43,7 @@ metadata:
   name: redis-db-airflow-redis-0
   namespace: airflow
 spec:
-  storageClassName: nfs
+  storageClassName: standard
   accessModes:
     - ReadWriteOnce
   resources:
