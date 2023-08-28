@@ -6,7 +6,7 @@ ARG CERT
 
 USER root
 
-COPY pip_packages_3_8.txt /pip_packages.txt
+COPY pip_packages.txt /pip_packages.txt
 
 # sudo apt install gcc g++ libsasl2-dev
 #RUN pip install -r /pip_packages.txt
