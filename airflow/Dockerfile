@@ -8,9 +8,6 @@ USER root
 
 COPY pip_packages.txt /pip_packages.txt
 
-# sudo apt install gcc g++ libsasl2-dev
-#RUN pip install -r /pip_packages.txt
-
 # Set AWS cli TLS CA certificate
 ENV AWS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
 
@@ -22,6 +19,7 @@ RUN update-ca-certificates
 RUN apt-get update && apt-get install -y gcc g++ libsasl2-dev && \
     su airflow -c "python -m pip install --upgrade pip" && \
     su airflow -c "set -ex && pip install -r /pip_packages.txt" && \
+    su airflow -c "set -ex && pip cache purge" && \
     apt-get purge -y gcc g++ libsasl2-dev && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get autoclean && \
