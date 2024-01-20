@@ -25,5 +25,7 @@ apache-airflow-providers-microsoft-azure
 apache-airflow-providers-apache-flink
 apache-airflow-providers-apache-cassandra
 apache-airflow-providers-docker
-#apache-airflow-providers-google
+apache-airflow-providers-dbt-cloud
+apache-airflow-providers-apache-livy
+apache-airflow-providers-google
 #apache-airflow-providers-tableau
